@@ -1,0 +1,23 @@
+{
+  "name": "dashingcms",
+  "version": "0.1.0",
+  "description": "Dashing CMS is a modular and modern cms api that runs on nodejs/expressjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "CMS",
+    "content",
+    "management",
+    "system",
+    "dashing",
+    "nodejs",
+    "node",
+    "express",
+    "expressjs",
+    "api"
+  ],
+  "author": "James Harrington",
+  "license": "MIT"
+}
