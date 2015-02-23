@@ -2,7 +2,7 @@
   "name": "dashingcms",
   "version": "0.1.0",
   "description": "Dashing CMS is a modular and modern cms api that runs on nodejs/expressjs",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,12 +12,23 @@
     "management",
     "system",
     "dashing",
-    "nodejs",
-    "node",
-    "express",
-    "expressjs",
     "api"
   ],
   "author": "James Harrington",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesharrington/dashingcms.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jamesharrington/dashingcms/issues"
+  },
+  "homepage": "https://github.com/jamesharrington/dashingcms",
+  "dependencies": {
+    "body-parser": "^1.12.0",
+    "express": "^4.12.0",
+    "mongoose": "^3.8.23",
+    "passport": "^0.2.1",
+    "passport-http-bearer": "^1.0.1"
+  }
 }
