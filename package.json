@@ -2,7 +2,7 @@
   "name": "dashingcms",
   "version": "0.1.0",
   "description": "Dashing CMS is a modular and modern cms api that runs on nodejs/expressjs",
-  "main": "server.js",
+  "main": "./server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

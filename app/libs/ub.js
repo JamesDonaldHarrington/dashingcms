@@ -19,6 +19,5 @@ ub.simpleClone = function(obj) {
 }
 
 ub.err = function(err, status, display, opt ){
-  
   return err;
 }
