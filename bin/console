@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('../app/config/application')
+require('../app')
 
 var repl = require('repl')
 
