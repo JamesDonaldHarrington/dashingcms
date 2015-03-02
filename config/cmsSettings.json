@@ -6,7 +6,8 @@
   "alreadySetup": false,
   "staticUrls": {
     "login": "/login",
-    "start": ""
+    "start": "test"
   },
-  "db": "dashingcms-dev"
+  "db": "james",
+  "siteName": "james"
 }

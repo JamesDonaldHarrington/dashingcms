@@ -1,7 +1,8 @@
 var express = require('express'),
     router = express.Router();
 
-router.use(App.require('/middlewares/successHandler_logger'));
+router.use(App.require('/middlewares/logging'));
+router.use(App.require('/middlewares/successHandler'));
 
 
 router.use('/start', App.require('/routes/start/start'));

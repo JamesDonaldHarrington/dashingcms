@@ -1,20 +1,6 @@
-var express = require('express');
-var router = express.Router();
-
-// REQUEST LOGGING
-// =============================================================================
-router.use(function(req, res, next) {
-    console.log('==============================================================================');
-    console.log('Making a '+ req.method +' request ( To API: ' + req.url + ' --  From Client: ' + req.originalUrl + ' )');
-    console.time('Complete. This request took');
-    
-    next(); 
-});
-
-
 // GLOBAL RESPONSE HANDLER
 // =============================================================================
-router.use (function successHandler(req, res, next){
+module.exports = function successHandler(req, res, next){
     res.success = function(payload, config){
       
       config = config || {};
@@ -31,6 +17,4 @@ router.use (function successHandler(req, res, next){
       console.log('==============================================================================');
     };
     next();
-})
-
-module.exports = router
+};

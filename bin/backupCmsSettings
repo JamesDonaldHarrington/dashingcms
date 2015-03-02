@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+require('../app')
+
+App.ub.backupCmsSettings(function(){
+	console.log('config/cmsSettings.json was backed up Successfully');
+	process.exit(0)
+});
+

@@ -5,7 +5,7 @@ require('../app')
 var repl = require('repl')
 
 var ourRepl = repl.start({
-  prompt: App.name + '> '
+  prompt: App.name + ' > '
 })
 
 ourRepl.on('exit', function() {

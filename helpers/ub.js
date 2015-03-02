@@ -22,7 +22,7 @@ ub.err = function(ere){
   return err;
 };
 
-ub.editCmsSettings = function(file, obj, val, cb) {
+ub.editJsonFile = function(file, obj, val, cb) {
   var loadFile = file, saveFile = file, backingup = false;
   if (this.isArray(file)) 
     {loadFile = file[0]; saveFile = file[1]; backingup = true;}
@@ -39,11 +39,14 @@ ub.editCmsSettings = function(file, obj, val, cb) {
     }
     fs.writeFile(saveFile, data, 'utf-8', function (err) {
       if (err){ throw err; }
-      (cb ? cb(jsonData) : console.log('filelistAsync complete') );
+      (cb ? cb(data) : console.log('filelistAsync complete') );
     });
   });
 };
 
 ub.backupCmsSettings = function(cb){
-  return ub.editCmsSettings(['config/cmsSettings.json', 'config/cmsSettings-backup.json'], null, null, cb);
+  return ub.editJsonFile(['config/cmsSettings.json', 'config/cmsSettings-backup.json'], null, null, cb);
+}
+ub.editCmsSettings = function(obj, val, cb){
+  return ub.editJsonFile('config/cmsSettings.json', obj, val, cb);
 }

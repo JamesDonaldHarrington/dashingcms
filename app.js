@@ -1,10 +1,10 @@
 /*globals App*/
 var env         = process.env.NODE_ENV || 'development',
     packageJson = require('./package.json'),
-    express     = require('express');
+    express     = require('express'),
+    bodyParser = require('body-parser');
 
 console.log('Loading App in ' + env + ' mode');
-
 global.App = {
   app: express(),
   name:packageJson.name,
@@ -20,16 +20,11 @@ global.App = {
   settings: (function(){ return require('./config/cmsSettings.json');})()
 };
 
-
-App.app.get('/', function(req, res){
-  if (!req.user) {
-    res.send('Welcome')
-  }
-})
-
+App.app.use(bodyParser.json())
+App.require('/config/db');
 App.app.use('/api', App.require('/routes/all'));
 
-App.require('/config/db');
+
 
 
 function startServer(){
