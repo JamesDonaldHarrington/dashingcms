@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR = 10,
     REQUIRED_PASSWORD_LENGTH = 8,
-    ub = require('../../libs/ub');
+    ub = App.require('/helpers/ub');
 
 function emailValidation (candidate){
   return /^[a-zA-Z0-9_.+-]{1,50}@[a-zA-Z0-9-]{1,50}\.[a-zA-Z0-9-.]{1,10}$/.test(candidate);
@@ -13,11 +13,12 @@ function stringLength(value){
 };
 
 UserSchema = new mongoose.Schema({
-  created {type:Number, default: Date.now()}
-  firstName:{type: String, required: true},
-  lastName: {type: String, required: true},
-  email: {type: String, required: true, unique:true, validate: [emailValidation, 'is not a valid email'] },
-  passwordHash: {type: String, required: true, validate: [stringLength, 'is too short (minimum length is ' + REQUIRED_PASSWORD_LENGTH + ' characters)']},
+  created: {type:Number, default: Date.now()},
+  firstName:{type: String, required: [true, 'First Name is required', 'test']},
+  lastName: {type: String, required: [true, 'Last Name is required']},
+  email: {type: String, required: [true, 'Email address is required'], unique:[true, 'That email already exists'], validate: [emailValidation, 'This is not a valid email'] },
+  password: {type: String, required: true, validate: [stringLength, 'is too short (minimum length is ' + REQUIRED_PASSWORD_LENGTH + ' characters)']},
+  salt : String,
   token: String,
   lastLogin: Number,
   loginAttempts: { type: Number, required: true, default: 0 },
@@ -36,7 +37,8 @@ UserSchema.pre('save', function(next) {
     bcrypt.hash(user.password, salt, function(err, hash) {
       if (err) return next(err);
       // override the cleartext password with the hashed one
-      user.passwordHash = hash;
+      user.salt = salt
+      user.password = hash;
       next();
     });
   });

@@ -6,6 +6,7 @@ router.use(App.require('/middlewares/successHandler'));
 
 
 router.use('/start', App.require('/routes/start/start'));
+router.use('/signup', App.require('/routes/signup/signup'));
 router.use('/login', App.require('/routes/login/login'));
 
 

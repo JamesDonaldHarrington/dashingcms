@@ -1,13 +1,5 @@
 {
-  "messages": {
-    "alreadySetup": "Dashing CMS is already set up if you wish to destroy it and start again please first login.",
-    "startSetup": "Thank you for choosing Dashing CMS. Welcome to the start up process."
-  },
-  "alreadySetup": false,
-  "staticUrls": {
-    "login": "/login",
-    "start": "test"
-  },
-  "db": "james",
-  "siteName": "james"
+  "db": "egaragragr",
+  "siteName": "James",
+  "isAlreadySetup": true
 }

@@ -8,7 +8,7 @@ module.exports = function successHandler(req, res, next){
         query:req.body,
         status:config.status || 200,
         success:true,
-        payload: payload || {},
+        results: payload || {},
       };
 
       res.status(config.status || 200).json(win);

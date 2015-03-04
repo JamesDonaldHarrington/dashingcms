@@ -22,19 +22,27 @@ ub.err = function(ere){
   return err;
 };
 
-ub.editJsonFile = function(file, obj, val, cb) {
+ub.stringToJson = function(str){
+  var equal = str.lastIndexOf('=')
+  var value = str.substring(equal+1).trim();
+  key = str.substring(0,equal).trim();
+  value =  ((/^true$/i).test(value) ? true : value )
+  return {key:key, val:value};
+};
+
+ub.editJsonFile = function(file, str, cb) {
+  var that = this;
   var loadFile = file, saveFile = file, backingup = false;
-  if (this.isArray(file)) 
+  if (that.isArray(file)) 
     {loadFile = file[0]; saveFile = file[1]; backingup = true;}
 
   fs.readFile(loadFile, 'utf-8', function(err, data){
     if (err){ throw err; }
     if(!backingup){
       data = JSON.parse(data);
-      arr = obj.split('.');
-      for (var i = 0; i < arr.length; i++) {
-        data[arr[i]]=val;
-      }
+      arr = str.split('.');
+      var keyVal = that.stringToJson(str)
+      data[keyVal.key] = keyVal.val
       data = JSON.stringify(data,null,2);
     }
     fs.writeFile(saveFile, data, 'utf-8', function (err) {
@@ -45,8 +53,9 @@ ub.editJsonFile = function(file, obj, val, cb) {
 };
 
 ub.backupCmsSettings = function(cb){
-  return ub.editJsonFile(['config/cmsSettings.json', 'config/cmsSettings-backup.json'], null, null, cb);
+  return ub.editJsonFile(['config/cmsSettings.json', 'config/cmsSettings-backup.json'], null, cb);
 }
-ub.editCmsSettings = function(obj, val, cb){
-  return ub.editJsonFile('config/cmsSettings.json', obj, val, cb);
+ub.editCmsSettings = function(str, cb){
+  return ub.editJsonFile('config/cmsSettings.json', str, cb);
 }
+
