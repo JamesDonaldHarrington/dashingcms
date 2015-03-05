@@ -1,5 +1,6 @@
 // HANDLING OTHER ERRORS
 // ============================================================================= //
+var MongooseError = require('mongoose/lib/error');
 
 function errs(err, req, res, next) {
   err = mongoErrorChecker(err);
@@ -32,19 +33,19 @@ function mongoErrorChecker(err){
     var possibleErrConfig = {
       'ValidationError':function(err){
         err.status = 400;
+        err.type = 'warning';
         err.results = {errors:err.errors};
         return err;
       },
       'MongoError':function(err) {
-        if (err.code === 11000) {
-          err.status = 400
-        };
-        err.results = {
-          errors:{
-            
-          }
+        if (11000 === err.code || 11001 === err.code) {
+          var field = dupField(err.message);
+          var valError = new MongooseError.ValidationError(err);
+          valError.errors[field] = new MongooseError.ValidatorError(field, 'That '+field+' already exists', err.err);
+          err = valError;
+          err = possibleErrConfig[err.name](err);
         }
-        return err
+        return err;
       }
     };
     if (possibleErrConfig.hasOwnProperty(err.name)) {
@@ -55,6 +56,8 @@ function mongoErrorChecker(err){
   return err;
 } 
 
-
+function dupField(e){
+  return e.match(/\$(.+)\_[0-9]/)[1];
+}
 
 module.exports = errs;

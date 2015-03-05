@@ -18,7 +18,7 @@ UserSchema = new mongoose.Schema({
   lastName: {type: String, required: [true, 'Last Name is required']},
   email: {type: String, required: [true, 'Email address is required'], unique:[true, 'That email already exists'], validate: [emailValidation, 'This is not a valid email'] },
   password: {type: String, required: true, validate: [stringLength, 'is too short (minimum length is ' + REQUIRED_PASSWORD_LENGTH + ' characters)']},
-  salt : String,
+  // salt : String,
   token: String,
   lastLogin: Number,
   loginAttempts: { type: Number, required: true, default: 0 },
@@ -30,16 +30,15 @@ UserSchema = new mongoose.Schema({
 UserSchema.pre('save', function(next) {
   var user = this;
   if (!user.isModified('password')) return next();
-  // generate a salt
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
     if (err) return next(err);
-    // hash the password using our new salt
     bcrypt.hash(user.password, salt, function(err, hash) {
       if (err) return next(err);
-      // override the cleartext password with the hashed one
-      user.salt = salt
+      // user.salt = salt
       user.password = hash;
+      
       next();
+      
     });
   });
 });

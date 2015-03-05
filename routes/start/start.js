@@ -53,8 +53,4 @@ router.route('/setup')
   }
 });
 
-
-router.use(App.require('/middlewares/405')(router));
-
-
 module.exports = router;

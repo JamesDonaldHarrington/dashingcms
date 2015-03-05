@@ -9,6 +9,12 @@ router.use('/start', App.require('/routes/start/start'));
 router.use('/signup', App.require('/routes/signup/signup'));
 router.use('/login', App.require('/routes/login/login'));
 
+router.use('/cms', 
+  App.require('/routes/dashboard/dashboard'),
+  App.require('/routes/actions/posts'),
+  App.require('/routes/actions/galleries')
+)
+
 
 router.all('*', App.require('/middlewares/404'));
 router.use(App.require('/middlewares/errorHandeling'));

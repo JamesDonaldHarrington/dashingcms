@@ -1,5 +1,6 @@
 // GLOBAL RESPONSE HANDLER
-// =============================================================================
+// =============================================================================\
+var ub = App.require('/helpers/ub');
 module.exports = function successHandler(req, res, next){
     res.success = function(payload, config){
       
@@ -8,7 +9,7 @@ module.exports = function successHandler(req, res, next){
         query:req.body,
         status:config.status || 200,
         success:true,
-        results: payload || {},
+        results: ub.stripCreds(payload) || {},
       };
 
       res.status(config.status || 200).json(win);

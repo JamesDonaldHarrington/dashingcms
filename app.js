@@ -18,6 +18,9 @@ global.App = {
   start:startServer,
   ub: (function(){ return require('./helpers/ub');})(),
   settings: (function(){ return require('./config/cmsSettings.json');})()
+  // modles:{
+  //   Users:function(){ return require('./models/users/users')}
+  // }
 };
 
 App.app.use(bodyParser.json())
