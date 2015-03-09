@@ -8,7 +8,7 @@ router.route('/users/:id?', auth.creds)
 .get(function (req, res, next) {
   Users.find(function(err, doc){
   	if (err) {return next(err);}
-  	doc = ub.stripCreds(doc);
+  	doc = ub.stripCreds(doc, ['token']);
   	res.success(doc);
   });
 })

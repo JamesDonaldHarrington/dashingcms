@@ -61,18 +61,24 @@ ub.editCmsSettings = function(str, cb){
 
 
 
-ub.stripCreds = function stripCreds (obj) {
+ub.stripCreds = function stripCreds (obj, keep) {
   if (!obj) {return false;}
   if (!this.isObject(obj) && !this.isArray(obj)) {return obj;}
   var newObj = this.simpleClone(obj);
-  
+  var remove = ['password', 'salt', '__v', 'loginAttempts', 'token'];
+  var i;
   if ( ub.isArray(newObj) ) 
-    { return newObj.map(function(o){ return ub.stripCreds(o) }) }
+    { return newObj.map(function(o){ return ub.stripCreds(o, keep); }); }
+  if (this.isArray(keep)) {
+    for (i = 0; i < keep.length; i++) {
+      console.log(remove.indexOf(keep[i]))
+      remove.splice(remove.indexOf(keep[i]), 1);
+    }
+  }
   try{
-    delete newObj.password;
-    delete newObj.salt;
-    delete newObj.__v
-    delete newObj.loginAttempts
+    for (i = 0; i < remove.length; i++) {
+      delete newObj[remove[i]];
+    }
   }catch(err){}
   return newObj;
 };
