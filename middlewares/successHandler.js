@@ -9,7 +9,7 @@ module.exports = function successHandler(req, res, next){
         query:req.body,
         status:config.status || 200,
         success:true,
-        results: ub.stripCreds(payload) || {},
+        results: ub.stripCreds(payload, config.keep || []) || {},
       };
 
       res.status(config.status || 200).json(win);

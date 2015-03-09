@@ -18,7 +18,7 @@ router.route('/')
     user.save(function(err, doc){
       if (err) {return next(err) };
       req.user = doc
-      res.success(doc)
+      res.success(doc, {keep: ['token']})
     })
   })
 });
