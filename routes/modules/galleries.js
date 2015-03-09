@@ -2,7 +2,7 @@
 var express = require('express'),
     router = express.Router(),
     auth = App.require('/helpers/auth'),
-    ub = App.require('/helpers/ub'),
+    // ub = App.require('/helpers/ub'),
     Galleries = App.require('/models/modules/galleries');
 
 router.route('/galleries/:id?')
@@ -23,7 +23,7 @@ router.route('/galleries/:id?')
 .get(function (req, res, next) {
   console.log(req.params);
   if (req.params.id && req.params.id !== 'galleries') {
-    Galleries.findOne({"_id":req.params.id},function(err, doc){
+    Galleries.findOne({'_id':req.params.id},function(err, doc){
       if (err) {return next(err);}
       res.success(doc);
     });
@@ -38,10 +38,10 @@ router.route('/galleries/:id?')
 .put(auth.creds, function (req, res, next) {
   Galleries.findOne({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}    
-    doc.title =    req.body.title || doc.title,
-    doc.slug =     req.body.slug || doc.slug,
-    doc.category = req.body.category || doc.category,
-    doc.header =   req.body.header || doc.header,
+    doc.title =    req.body.title || doc.title;
+    doc.slug =     req.body.slug || doc.slug;
+    doc.category = req.body.category || doc.category;
+    doc.header =   req.body.header || doc.header;
 
     doc.save(function(err, doc){
       if (err) {return next(err);}
@@ -53,7 +53,7 @@ router.route('/galleries/:id?')
 .delete(auth.creds, function (req, res, next) {
   Galleries.remove({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}
-    res.success(doc)
+    res.success(doc);
   });
 });
 

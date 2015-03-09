@@ -32,15 +32,15 @@ router.route('/events/:id?')
   Events.findOne({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}
     
-    title =       req.body.title       || doc.title
-    image =       req.body.image       || doc.image
-    slug =        req.body.slug        || doc.slug
-    category =    req.body.category    || doc.category
-    body =        req.body.body        || doc.body
-    startDate =   req.body.startDate   || doc.startDate
-    endDate =     req.body.endDate     || doc.endDate
-    location =    req.body.location    || doc.location
-    eventStatus = req.body.eventStatus || doc.eventStatus
+    doc.title =       req.body.title       || doc.title;
+    doc.image =       req.body.image       || doc.image;
+    doc.slug =        req.body.slug        || doc.slug;
+    doc.category =    req.body.category    || doc.category;
+    doc.body =        req.body.body        || doc.body;
+    doc.startDate =   req.body.startDate   || doc.startDate;
+    doc.endDate =     req.body.endDate     || doc.endDate;
+    doc.location =    req.body.location    || doc.location;
+    doc.eventStatus = req.body.eventStatus || doc.eventStatus;
 
     doc.save(function(err, doc){
       if (err) {return next(err);}

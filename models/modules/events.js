@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'),
+    // ub = App.require('/helpers/ub'),
     slug = require('slug'),
-    ub = App.require('/helpers/ub');
-
 
 EventsSchema = new mongoose.Schema({
   created:     {type:Number, default: Date.now()},
@@ -25,7 +24,7 @@ EventsSchema.pre('save', function(next) {
   if (!this.slug) {
     this.slug = slug(this.title);
     next();
-  };
+  }
   next();
 });
 
@@ -33,5 +32,5 @@ EventsSchema.pre('save', function(next) {
 
 
 
-Event = module.exports = mongoose.model('Event', EventsSchema);
+module.exports = mongoose.model('Event', EventsSchema);
 

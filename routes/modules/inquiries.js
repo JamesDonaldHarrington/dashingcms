@@ -1,11 +1,12 @@
+/*globals App*/
 var express = require('express'),
     router = express.Router(),
-    auth = App.require('/helpers/auth');
+    auth = App.require('/helpers/auth'),
     Inquiries = App.require('/models/modules/inquiries');
 
 router.route('/inquiries/:id?')
 .post(function (req, res, next) {
-  inq = new Inquiries({
+  var inq = new Inquiries({
     givenName: req.body.givenName,
     familyName: req.body.familyName,
     email:   req.body.email,

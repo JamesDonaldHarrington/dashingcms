@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'),
+    // ub = App.require('/helpers/ub'),
     slug = require('slug'),
-    ub = App.require('/helpers/ub');
-
 
 PostsSchema = new mongoose.Schema({
   created:  {type:Number, default: Date.now()},
@@ -18,7 +17,7 @@ PostsSchema.pre('save', function(next) {
   if (!this.slug) {
     this.slug = slug(this.title);
     next();
-  };
+  }
   next();
 });
 
@@ -26,5 +25,5 @@ PostsSchema.pre('save', function(next) {
 
 
 
-Page = module.exports = mongoose.model('Page', PostsSchema);
+module.exports = mongoose.model('Post', PostsSchema);
 

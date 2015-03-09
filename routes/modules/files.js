@@ -1,3 +1,4 @@
+/*globals App*/
 var express = require('express'),
     router = express.Router(),
     auth = App.require('/helpers/auth'),
@@ -7,10 +8,9 @@ var express = require('express'),
     Files = App.require('/models/modules/files');
 
 router.route('/files')
-.post(auth.creds,[multer({dest: './uploads', rename: function (fieldname, filename) {return slug(filename).toLowerCase() + Date.now() }, putSingleFilesInArray: true }),  
+.post(auth.creds,[multer({dest: './uploads', rename: function (fieldname, filename) {return slug(filename).toLowerCase() + Date.now(); }, putSingleFilesInArray: true }),  
 function(req, res, next){
-  console.log(req.files)
-  file = new Files({
+  var file = new Files({
     galleries: req.galleries,
     title:     req.body.title,
     fileName:  req.files.fileUpload[0].name,
@@ -19,16 +19,16 @@ function(req, res, next){
     text:      req.body.text,
     info:      req.body.info || []
   });
-  file.save(function(err, doc){
+  file.save(function(err/*, doc*/){
     if (err) {return next(err);}
     console.log(req.body);
     res.success({files:req.files, body:req.body});
-  })
+  });
 }])
 .get(function (req, res, next) {
   Files.find(function(err, doc){
     if (err) {return next(err);}
-    res.success(doc)
+    res.success(doc);
   });
 })
 .delete(auth.creds, function (req, res, next) {
@@ -44,7 +44,7 @@ function(req, res, next){
         res.success(doc);
       });
     });
-  })
+  });
 });
 
 

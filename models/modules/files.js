@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'),
-    slug = require('slug'),
-    ub = App.require('/helpers/ub');
-
+    // slug = require('slug'),
+    // ub = App.require('/helpers/ub'),
 
 FilesSchema = new mongoose.Schema({
   created:   {type:Number, default: Date.now()},
@@ -18,4 +17,4 @@ FilesSchema = new mongoose.Schema({
 });
 
 
-File = module.exports = mongoose.model('File', FilesSchema);
+module.exports = mongoose.model('File', FilesSchema);

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
+    // ub = App.require('/helpers/ub'),
     slug = require('slug'),
-    ub = App.require('/helpers/ub');
 
 
 GalleriesSchema = new mongoose.Schema({
@@ -17,13 +17,12 @@ GalleriesSchema.pre('save', function(next) {
   if (!this.slug) {
     this.slug = slug(this.title);
     next();
-  };
+  }
   next();
 });
 
 
 
 
-
-Page = module.exports = mongoose.model('Gallery', GalleriesSchema);
+module.exports = mongoose.model('Gallery', GalleriesSchema);
 
