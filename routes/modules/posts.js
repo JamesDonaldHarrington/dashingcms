@@ -7,10 +7,11 @@ var express = require('express'),
 router.route('/posts/:id?')
 .post(auth.creds, function (req, res, next) {
   var post = new Posts({
-    title: req.body.title,
-    slug: req.body.slug,
+    creator:  req.headers._id,
+    title:    req.body.title,
+    slug:     req.body.slug,
     category: req.body.category,
-    body: req.body.body
+    body:     req.body.body
   });
   post.save(function(err, doc){
     if (err) {return next(err);}
@@ -35,8 +36,8 @@ router.route('/posts/:id?')
   Posts.findOne({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}
     doc.title = req.body.title || doc.title;
-    doc.slug = req.body.slug || doc.slug;
-    doc.body = req.body.body || doc.body;
+    doc.slug =  req.body.slug  || doc.slug;
+    doc.body =  req.body.body  || doc.body;
     doc.category = req.body.category || doc.category;
     doc.save(function(err, doc){
       if (err) {return next(err);}

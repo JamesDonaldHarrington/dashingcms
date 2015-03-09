@@ -20,8 +20,8 @@ router.route('/users/:id?', auth.creds)
 		    if (err) {return next(err);}
 		    
 		    doc.email = req.body.email || doc.email;
-		    doc.firstName = req.body.firstName || doc.firstName;
-		    doc.lastName = req.body.lastName || doc.lastName;
+		    doc.givenName = req.body.givenName || doc.givenName;
+		    doc.familyName = req.body.familyName || doc.familyName;
 		   	if (req.body.newPassword) 
 		   		{doc.password = req.body.newPassword }
 

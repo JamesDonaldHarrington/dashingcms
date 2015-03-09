@@ -4,11 +4,12 @@ var mongoose = require('mongoose'),
 
 
 PostsSchema = new mongoose.Schema({
-  created: {type:Number, default: Date.now()},
-  title:{type:String, required:[true, 'Please supply a title']},
-  slug:{type:String},
-  category:{type:String, required:[true, 'Please supply a category']},
-  body:{type:String, required:[true, 'Please supply body']},
+  created:  {type:Number, default: Date.now()},
+  creator:  {type:String, required:[true, 'Please supply a creator Object Id']},
+  title:    {type:String, required:[true, 'Please supply a title']},
+  slug:     String,
+  category: String,
+  body:     {type:String, required:[true, 'Please supply body']},
 });
 
 

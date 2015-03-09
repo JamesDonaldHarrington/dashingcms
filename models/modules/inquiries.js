@@ -5,13 +5,17 @@ var mongoose = require('mongoose'),
 
 InquiriesSchema = new mongoose.Schema({
   created: {type:Number, default: Date.now()},
-  firstName:String,
-  lastName:String,
-  email:String,
-  phone:String,
-  message:String,
-  age:String,
-  gender:String
+  givenName:  String,
+  familyName: String,
+  email:      String,
+  phone:      String,
+  message:    String,
+  age:        String,
+  gender:     String,
+  address:    String,
+  city:       String,
+  state:      String,
+  zip:        String
 });
 
 

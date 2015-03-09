@@ -11,13 +11,13 @@ router.route('/files')
 function(req, res, next){
   console.log(req.files)
   file = new Files({
-    galleries:req.galleries,
-    title:req.body.title,
-    fileName: req.files.fileUpload[0].name,
-    category: req.body.category,
-    note:req.body.note,
-    text:req.body.text,
-    info:req.body.info || []
+    galleries: req.galleries,
+    title:     req.body.title,
+    fileName:  req.files.fileUpload[0].name,
+    category:  req.body.category,
+    note:      req.body.note,
+    text:      req.body.text,
+    info:      req.body.info || []
   });
   file.save(function(err, doc){
     if (err) {return next(err);}

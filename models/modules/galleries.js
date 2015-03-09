@@ -4,11 +4,11 @@ var mongoose = require('mongoose'),
 
 
 GalleriesSchema = new mongoose.Schema({
-  created: {type:Number, default: Date.now()},
-  title:{type:String, required:[true, 'Please supply a title']},
-  slug:String,
-  category:String,
-  header:String
+  created:  {type:Number, default: Date.now()},
+  title:    {type:String, required:[true, 'Please supply a title']},
+  slug:     String,
+  category: String,
+  header:   String
 });
 
 

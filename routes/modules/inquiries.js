@@ -6,13 +6,13 @@ var express = require('express'),
 router.route('/inquiries/:id?')
 .post(function (req, res, next) {
   inq = new Inquiries({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    phone: req.body.phone,
+    givenName: req.body.givenName,
+    familyName: req.body.familyName,
+    email:   req.body.email,
+    phone:   req.body.phone,
     message: req.body.message,
-    age: req.body.age,
-    gender: req.body.gender
+    age:     req.body.age,
+    gender:  req.body.gender
   });
   inq.save(function(err, doc){
     if (err) {return next(err);}

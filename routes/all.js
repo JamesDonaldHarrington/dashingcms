@@ -5,12 +5,12 @@ router.use(App.require('/middlewares/logging'));
 router.use(App.require('/middlewares/successHandler'));
 
 
-router.use('/start', App.require('/routes/start/start'));
+router.use('/start',  App.require('/routes/start/start'));
 router.use('/signup', App.require('/routes/signup/signup'));
-router.use('/login', App.require('/routes/login/login'));
+router.use('/login',  App.require('/routes/login/login'));
 
 router.use('/cms', 
-  App.require('/routes/dashboard/dashboard'),
+  App.require('/routes/modules/dashboard'),
   App.require('/routes/modules/posts'),
   App.require('/routes/modules/galleries'),
   App.require('/routes/modules/files'),

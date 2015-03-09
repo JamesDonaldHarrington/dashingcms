@@ -9,10 +9,10 @@ router.route('/galleries/:id?')
 
 .post(auth.creds, function (req, res, next) {
   var gallery = new Galleries({
-    title: req.body.title,
-    slug: req.body.slug,
+    title:    req.body.title,
+    slug:     req.body.slug,
     category: req.body.category,
-    header: req.body.header,
+    header:   req.body.header,
   });
   gallery.save(function(err, doc){
     if (err) {return next(err);}
@@ -38,10 +38,10 @@ router.route('/galleries/:id?')
 .put(auth.creds, function (req, res, next) {
   Galleries.findOne({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}    
-    doc.title = req.body.title || doc.title,
-    doc.slug = req.body.slug || doc.slug,
+    doc.title =    req.body.title || doc.title,
+    doc.slug =     req.body.slug || doc.slug,
     doc.category = req.body.category || doc.category,
-    doc.header = req.body.header || doc.header,
+    doc.header =   req.body.header || doc.header,
 
     doc.save(function(err, doc){
       if (err) {return next(err);}

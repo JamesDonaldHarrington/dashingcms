@@ -10,8 +10,8 @@ router.route('/')
   user = new Users();
   user.email = req.body.payload.email;
   user.password = req.body.payload.password;
-  user.firstName = req.body.payload.firstName;
-  user.lastName = req.body.payload.lastName;
+  user.givenName = req.body.payload.givenName;
+  user.familyName = req.body.payload.familyName;
 
   crypto.randomBytes(48, function(ex, buf) {
     user.token = buf.toString('hex');

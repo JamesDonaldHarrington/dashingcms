@@ -4,16 +4,19 @@ var mongoose = require('mongoose'),
 
 
 EventsSchema = new mongoose.Schema({
-  created: {type:Number, default: Date.now()},
-  title:{type:String, required:[true, 'Please supply a title']},
-  image:{type:String},
-  slug:{type:String},
-  category:{type:String, required:[true, 'Please supply a category']},
-  body:{type:String, required:[true, 'Please supply body']},
-  startDate:{type:Number, require:[true, 'Please choose a start date']},
-  endDate:{type:Number},
-  location:{type:String},
-  eventStatus:{type:String}
+  created:     {type:Number, default: Date.now()},
+  title:       {type:String, required:[true, 'Please supply a title']},
+  image:       String,
+  slug:        String,
+  category:    String,
+  body:{type:  String, required:[true, 'Please supply body']},
+  startDate:   {type:Number, require:[true, 'Please choose a start date']},
+  endDate:     {type:Number, default:0},
+  address:     String,
+  city:        String,
+  state:       String,
+  zip:         String,
+  eventStatus: String
 });
 
 

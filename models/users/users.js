@@ -15,14 +15,15 @@ function stringLength(value){
 
 UserSchema = new mongoose.Schema({
   created: {type:Number, default: Date.now()},
-  firstName:{type: String},
-  lastName: {type: String},
+  givenName:{type: String},
+  familyName: {type: String},
   email: {type: String, required: [true, 'Email address is required'], unique:[true, 'That email already exists'], validate: [emailValidation, 'This is not a valid email'] },
   password: {type: String, required: true, validate: [stringLength, 'is too short (minimum length is ' + REQUIRED_PASSWORD_LENGTH + ' characters)']},
   token: String,
   lastLogin: Number,
   loginAttempts: { type: Number, required: true, default: 0 },
-  lockedUntil: Number
+  lockedUntil: Number,
+  accessibilit:{type:String, default:'owner'}
 });
 
 
