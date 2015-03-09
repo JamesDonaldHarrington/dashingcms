@@ -3,7 +3,7 @@ var express = require('express'),
     router = express.Router(),
     auth = App.require('/helpers/auth'),
     ub = App.require('/helpers/ub'),
-    Galleries = App.require('/models/actions/galleries');
+    Galleries = App.require('/models/modules/galleries');
 
 router.route('/galleries/:id?')
 

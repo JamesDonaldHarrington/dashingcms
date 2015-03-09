@@ -4,7 +4,7 @@ var express = require('express'),
     multer = require('multer'),
     slug = require('slug'),
     fs = require('fs'),
-    Files = App.require('/models/actions/files');
+    Files = App.require('/models/modules/files');
 
 router.route('/files')
 .post(auth.creds,[multer({dest: './uploads', rename: function (fieldname, filename) {return slug(filename).toLowerCase() + Date.now() }, putSingleFilesInArray: true }),  

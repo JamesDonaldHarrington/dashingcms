@@ -11,11 +11,12 @@ router.use('/login', App.require('/routes/login/login'));
 
 router.use('/cms', 
   App.require('/routes/dashboard/dashboard'),
-  App.require('/routes/actions/posts'),
-  App.require('/routes/actions/galleries'),
-  App.require('/routes/actions/files'),
-  App.require('/routes/actions/inquiries'),
-  App.require('/routes/actions/users')
+  App.require('/routes/modules/posts'),
+  App.require('/routes/modules/galleries'),
+  App.require('/routes/modules/files'),
+  App.require('/routes/modules/inquiries'),
+  App.require('/routes/modules/users'),
+  App.require('/routes/modules/events')
 )
 
 

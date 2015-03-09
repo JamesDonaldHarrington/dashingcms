@@ -64,7 +64,7 @@ ub.editCmsSettings = function(str, cb){
 ub.stripCreds = function stripCreds (obj, keep) {
   if (!obj) {return false;}
   if (!this.isObject(obj) && !this.isArray(obj)) {return obj;}
-  
+
   var newObj = this.simpleClone(obj);
   var removeArr = ['password', 'salt', '__v', 'loginAttempts', 'token'];
   var i;
@@ -76,7 +76,6 @@ ub.stripCreds = function stripCreds (obj, keep) {
     for (i = 0; i < keep.length; i++) {
       if (removeArr.indexOf(keep[i]) > -1 ) {
         removeArr.splice(removeArr.indexOf(keep[i]), 1);
-        console.log(removeArr);
       }
     }
   }
