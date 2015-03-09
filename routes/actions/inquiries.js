@@ -1,20 +1,35 @@
 var express = require('express'),
     router = express.Router(),
     auth = App.require('/helpers/auth');
-    User = App.require('/models/users/users');
+    Inquiries = App.require('/models/actions/inquiries');
 
-router.route('/inquiries/:id?', auth.creds)
+router.route('/inquiries/:id?')
 .post(function (req, res, next) {
-  res.success('create')
+  inq = new Inquiries({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    phone: req.body.phone,
+    message: req.body.message,
+    age: req.body.age,
+    gender: req.body.gender
+  });
+  inq.save(function(err, doc){
+    if (err) {return next(err);}
+    res.success(doc);
+  });
 })
-.get(function (req, res, next) {
-  res.success('read')
+.get(auth.creds, function (req, res, next) {
+  Inquiries.find(function(err, doc){
+    if (err) {return next(err);}
+    res.success(doc);
+  });
 })
-.put(function (req, res, next) {
-  res.success('update')
-})
-.delete(function (req, res, next) {
-  res.success('destroy')
+.delete(auth.creds, function (req, res, next) {
+  Inquiries.remove({_id:req.body._id}, function(err, doc){
+    if (err) {return next(err);}
+    res.success(doc);
+  });
 });
 
 

@@ -26,7 +26,7 @@ global.App = {
 App.app.use(bodyParser.json())
 App.require('/config/db');
 App.app.use('/api', App.require('/routes/all'));
-
+// App.app.use(express.static(__dirname + '/uploads'));
 
 
 

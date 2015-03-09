@@ -25,5 +25,5 @@ GalleriesSchema.pre('save', function(next) {
 
 
 
-Page = module.exports = mongoose.model('File', GalleriesSchema);
+Page = module.exports = mongoose.model('Gallery', GalleriesSchema);
 

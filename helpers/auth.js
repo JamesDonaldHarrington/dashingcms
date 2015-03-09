@@ -5,9 +5,10 @@ var auth = module.exports = {},
 
 
 auth.login = function(req, res, next){
-  if (!req.body.payload) {var err =new Error('please provide a payload object'); err.status =400; return next(err);}
-  Users.find({ email: req.body.payload.email }, function(err, user){ user = user[0];
-    user.comparePassword(req.body.payload.password, function(err, desc) {
+  Users.findOne({ email: req.body.email }, function(err, user){
+    if (err){return next(err);} 
+    if (!user){err = new Error('This user does not exist'); err.status = 400; return next(err)}
+    user.comparePassword(req.body.password, function(err, desc) {
       if (desc) {
         crypto.randomBytes(48, function(ex, buf) {
           user.token = buf.toString('hex');
@@ -22,21 +23,17 @@ auth.login = function(req, res, next){
 };
 
 
-// auth.newToken = function(cb){
-// 
-// };
-
 auth.creds = function(req, res, next ){
-  // console.log(req.body);
-  Users.findOne({'_id':req.body.id}, function(err, doc){
+  var id = req.headers._id;
+  var token = req.headers.token;
+  Users.findOne({'_id':id}, function(err, doc){
     if (err) { return next(err);}
     if (!doc) {
       err = new Error('No user found with that id');
       err.status = 400; err.type = 'warning';
       return next(err);
     }
-    if (req.body.token === doc.token) {
-      console.log(doc);
+    if (token === doc.token) {
       req.user = doc;
       next();
     }else{

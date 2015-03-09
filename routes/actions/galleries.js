@@ -2,16 +2,17 @@
 var express = require('express'),
     router = express.Router(),
     auth = App.require('/helpers/auth'),
+    ub = App.require('/helpers/ub'),
     Galleries = App.require('/models/actions/galleries');
 
 router.route('/galleries/:id?')
 
 .post(auth.creds, function (req, res, next) {
   var gallery = new Galleries({
-    title: req.body.payload.title,
-    slug: req.body.payload.slug,
-    category: req.body.payload.category,
-    header: req.body.payload.header,
+    title: req.body.title,
+    slug: req.body.slug,
+    category: req.body.category,
+    header: req.body.header,
   });
   gallery.save(function(err, doc){
     if (err) {return next(err);}
@@ -35,12 +36,12 @@ router.route('/galleries/:id?')
 })
 
 .put(auth.creds, function (req, res, next) {
-  Galleries.findOne({'_id': req.body.payload._id}, function(err, doc){
+  Galleries.findOne({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}    
-    doc.title = req.body.payload.title || doc.title,
-    doc.slug = req.body.payload.slug || doc.slug,
-    doc.category = req.body.payload.category || doc.category,
-    doc.header = req.body.payload.header || doc.header,
+    doc.title = req.body.title || doc.title,
+    doc.slug = req.body.slug || doc.slug,
+    doc.category = req.body.category || doc.category,
+    doc.header = req.body.header || doc.header,
 
     doc.save(function(err, doc){
       if (err) {return next(err);}
@@ -50,7 +51,7 @@ router.route('/galleries/:id?')
 })
 
 .delete(auth.creds, function (req, res, next) {
-  Galleries.remove({'_id': req.body.payload._id}, function(err, doc){
+  Galleries.remove({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}
     res.success(doc)
   });

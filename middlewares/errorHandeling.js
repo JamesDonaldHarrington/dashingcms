@@ -15,7 +15,6 @@ function errs(err, req, res, next) {
 
   err.type = (err.json.message === 'Generic error message' ? false : err.type);
 
-  res.status(err.status).json(err.json);
   console.log(err.json.status+ ' error. -- Failure due to '+ err.json.message+ ' See Full StackTrace Below');
   console.timeEnd('Complete. This request took');
   console.log('==============================================================================\n');
@@ -24,6 +23,7 @@ function errs(err, req, res, next) {
   console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
   console.log(err);
   console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
+  res.status(err.status).json(err.json);
 }
 
 
@@ -46,6 +46,13 @@ function mongoErrorChecker(err){
           err = possibleErrConfig[err.name](err);
         }
         return err;
+      },
+      'CastError': function(err){
+        var error = new MongooseError.ValidationError(err);
+        error.errors[err.path] = new MongooseError.ValidatorError(err.path, err.path+' is not valid', err.err);
+        error.status = 400;
+        error.type = false;
+        return possibleErrConfig[error.name](error);
       }
     };
     if (possibleErrConfig.hasOwnProperty(err.name)) {

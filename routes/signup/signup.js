@@ -2,15 +2,16 @@
 var express = require('express'),
     router = express.Router(), 
     Users = App.require('/models/users/users'),
-    ub = App.require('/helpers/ub');
+    crypto = require('crypto'),
+    ub = App.require('/helpers/ub');  
 
 router.route('/')
 .post(function (req, res, next) {
   user = new Users();
-  user.email = req.body.email;
-  user.password = req.body.password;
-  user.firstName = req.body.firstName;
-  user.lastName = req.body.lastName;
+  user.email = req.body.payload.email;
+  user.password = req.body.payload.password;
+  user.firstName = req.body.payload.firstName;
+  user.lastName = req.body.payload.lastName;
 
   crypto.randomBytes(48, function(ex, buf) {
     user.token = buf.toString('hex');

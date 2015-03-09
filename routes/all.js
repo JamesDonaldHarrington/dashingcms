@@ -12,7 +12,10 @@ router.use('/login', App.require('/routes/login/login'));
 router.use('/cms', 
   App.require('/routes/dashboard/dashboard'),
   App.require('/routes/actions/posts'),
-  App.require('/routes/actions/galleries')
+  App.require('/routes/actions/galleries'),
+  App.require('/routes/actions/files'),
+  App.require('/routes/actions/inquiries'),
+  App.require('/routes/actions/users')
 )
 
 

@@ -61,10 +61,13 @@ ub.editCmsSettings = function(str, cb){
 
 
 
-ub.stripCreds = function (obj) {
+ub.stripCreds = function stripCreds (obj) {
   if (!obj) {return false;}
-  if (!this.isObject(obj)) {return obj;}
+  if (!this.isObject(obj) && !this.isArray(obj)) {return obj;}
   var newObj = this.simpleClone(obj);
+  
+  if ( ub.isArray(newObj) ) 
+    { return newObj.map(function(o){ return ub.stripCreds(o) }) }
   try{
     delete newObj.password;
     delete newObj.salt;
@@ -73,3 +76,4 @@ ub.stripCreds = function (obj) {
   }catch(err){}
   return newObj;
 };
+
