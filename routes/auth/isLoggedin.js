@@ -4,12 +4,8 @@ var express = require('express'),
     User = App.require('/models/users/users');
 
 router.route('/')
-.post(auth.login, function (req, res, next) {
-  if (req.user) {
-    res.success(req.user, {keep: ['token']})
-  }else{
-    next(new Error('No User Found'))
-  }
+.post(auth.creds, function (req, res, next) {
+  res.success({}, {message: 'User is logged in'})
 })
 
 module.exports = router;

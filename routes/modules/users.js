@@ -6,13 +6,13 @@ var express = require('express'),
     Users = App.require('/models/users/users');
 
 router.route('/users/:id?', auth.creds)
-.get(function (req, res, next) {
+.get(auth.creds, function (req, res, next) {
   Users.find(function(err, doc){
   	if (err) {return next(err);}
   	res.success(doc);
   });
 })
-.put(function (req, res, next) {
+.put(auth.creds, function (req, res, next) {
    Users.findOne({'_id': req.body._id}, function(err, doc){
    	if (err){return next(err);} 
     if (!doc){err = new Error('This user does not exist'); err.status = 400; return next(err);}
@@ -35,7 +35,7 @@ router.route('/users/:id?', auth.creds)
 	  });
   });
 })
-.delete(function (req, res, next) {
+.delete(auth.creds, function (req, res, next) {
   Users.remove({'_id': req.body._id, email:req.body.email}, function(err, doc){
     if (err) {return next(err);}
     res.success(doc);

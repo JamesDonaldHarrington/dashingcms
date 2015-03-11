@@ -23,7 +23,7 @@ UserSchema = new mongoose.Schema({
   lastLogin: Number,
   loginAttempts: { type: Number, required: true, default: 0 },
   lockedUntil: Number,
-  accessibilit:{type:String, default:'owner'}
+  accessibility:{type:String, default:'owner'}
 });
 
 

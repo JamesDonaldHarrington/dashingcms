@@ -9,6 +9,8 @@ module.exports = function successHandler(req, res, next){
         query:req.body,
         status:config.status || 200,
         success:true,
+        message: config.message || undefined,
+        type: config.type || (config.message ? 'success': false),
         results: ub.stripCreds(payload, config.keep || []) || {},
       };
 

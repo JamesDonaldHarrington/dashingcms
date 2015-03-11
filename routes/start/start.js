@@ -18,7 +18,7 @@ var validationError = {
   }
 }
 router.route('/')
-.post(function (req, res/*, next*/) {
+.get(function (req, res/*, next*/) {
   var setup = App.settings.isAlreadySetup;
   res.success({
     alreadySetup: setup
@@ -32,7 +32,7 @@ router.route('/setup')
       ub.editCmsSettings('db='+req.body.dbName, function(){
         ub.editCmsSettings('siteName='+req.body.siteName, function(){
           ub.editCmsSettings('isAlreadySetup=true', function(){
-            res.success('site name and database name setup was successful');
+            res.success({} , {message:'Site name and database setup was successful'});
             process.exit(0);
           });
         });
