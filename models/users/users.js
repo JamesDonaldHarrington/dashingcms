@@ -17,8 +17,8 @@ UserSchema = new mongoose.Schema({
   created: {type:Number, default: Date.now()},
   givenName:{type: String},
   familyName: {type: String},
-  email: {type: String, required: [true, 'Email address is required'], unique:[true, 'That email already exists'], validate: [emailValidation, 'This is not a valid email'] },
-  password: {type: String, required: true, validate: [stringLength, 'is too short (minimum length is ' + REQUIRED_PASSWORD_LENGTH + ' characters)']},
+  email: {type: String, required: [true, 'Email address is required'], unique:[true, 'That email already exists'], validate: [emailValidation, 'That is not a valid email'] },
+  password: {type: String, required: true, validate: [stringLength, 'Password is too short (minimum length is ' + REQUIRED_PASSWORD_LENGTH + ' characters)']},
   token: String,
   lastLogin: Number,
   loginAttempts: { type: Number, required: true, default: 0 },
@@ -36,7 +36,7 @@ UserSchema.pre('save', function(next) {
     if (err) return next(err);
     bcrypt.hash(tempPassword || user.password, salt, function(err, hash) {
       if (err) return next(err);
-      req.tempPassword = tempPassword;
+      if(tempPassword){req.tempPassword = tempPassword;}
       user.password = hash;
       next();
     });

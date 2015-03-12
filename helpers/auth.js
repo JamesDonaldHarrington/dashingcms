@@ -7,7 +7,7 @@ var auth = module.exports = {},
 auth.login = function(req, res, next){
   Users.findOne({ email: req.body.email }, function(err, user){
     if (err){return next(err);} 
-    if (!user){err = new Error('This user does not exist'); err.status = 400; return next(err)}
+    if (!user){err = new Error('This user does not exist'); err.status = 400, err.type = 'danger'; return next(err)}
     user.comparePassword(req.body.password, function(err, desc) {
       if(err){return next(err);}
       if (!desc) {

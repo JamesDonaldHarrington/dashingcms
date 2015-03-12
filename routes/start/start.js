@@ -1,9 +1,11 @@
 /*globals App*/
 var express = require('express'),
     router = express.Router(), 
-    ub = App.require('/helpers/ub');
+    Users = App.require('/models/users/users'),
+    crypto = require('crypto'),
+    ub = App.require('/helpers/ub'),
 
-var validationError = {
+validationError = {
   dbName:{
     message: "Database name is required",
     name: "ValidatorError",
@@ -16,7 +18,7 @@ var validationError = {
     path: "siteName",
     type: "required"
   }
-}
+};
 router.route('/')
 .get(function (req, res/*, next*/) {
   var setup = App.settings.isAlreadySetup;
@@ -32,7 +34,7 @@ router.route('/setup')
       ub.editCmsSettings('db='+req.body.dbName, function(){
         ub.editCmsSettings('siteName='+req.body.siteName, function(){
           ub.editCmsSettings('isAlreadySetup=true', function(){
-            res.success({} , {message:'Site name and database setup was successful'});
+            res.success({}, {message:'Setup was successful'});
             process.exit(0);
           });
         });

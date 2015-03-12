@@ -7,20 +7,28 @@ var express = require('express'),
 
 router.route('/')
 .post(function (req, res, next) {
-  user = new Users();
-  user.email = req.body.payload.email;
-  user.password = req.body.payload.password;
-  user.givenName = req.body.payload.givenName;
-  user.familyName = req.body.payload.familyName;
+  User.find(function(err, doc){
+    if (err) {return next(err);}
+    if (doc.length > 0 ){
+      err = new Error('The owner of this site must invite you');
+      err.status = 400; err.type = 'danger';
+      return next(err);
+    }
+    user = new Users();
+    user.email = req.body.email;
+    user.password = req.body.password;
+    user.givenName = req.body.givenName;
+    user.familyName = req.body.familyName;
 
-  crypto.randomBytes(48, function(ex, buf) {
-    user.token = buf.toString('hex');
-    user.save(function(err, doc){
-      if (err) {return next(err) };
-      req.user = doc
-      res.success(doc, {keep: ['token']})
+    crypto.randomBytes(48, function(ex, buf) {
+      user.token = buf.toString('hex');
+      user.save(function(err, doc){
+        if (err) {return next(err) };
+        req.user = doc
+        res.success(doc, {keep: ['token'], message:'User Successfully created'})
+      })
     })
-  })
+  });
 });
 
 
