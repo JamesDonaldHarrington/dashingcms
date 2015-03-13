@@ -8,8 +8,8 @@ PostsSchema = new mongoose.Schema({
   title:    {type:String, required:[true, 'Please supply a title']},
   slug:     String,
   category: String,
-  status: {type:String, required:true},
-  body:     {type:String, required:[true, 'Please supply body']},
+  status:   {type:String, required:[true, 'Please supply a status']},
+  body:     {type:String, required:[true, 'Please supply a body']},
 });
 
 
