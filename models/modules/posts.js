@@ -7,7 +7,7 @@ PostsSchema = new mongoose.Schema({
   creator:  {type:String, required:[true, 'Please supply a creator Object Id']},
   title:    {type:String, required:[true, 'Please supply a title']},
   slug:     String,
-  category: String,
+  category: [{type:String}],
   status:   {type:String, required:[true, 'Please supply a status']},
   body:     {type:String, required:[true, 'Please supply a body']},
 });
