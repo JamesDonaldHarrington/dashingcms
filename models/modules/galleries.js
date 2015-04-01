@@ -6,6 +6,11 @@ var mongoose = require('mongoose'),
 GalleriesSchema = new mongoose.Schema({
   created:  {type:Number, default: Date.now()},
   title:    {type:String, required:[true, 'Please supply a title']},
+  images:    [{
+  _id: {type:String},
+  caption:{type:String},
+  position:{type:Number}
+  }],
   slug:     String,
   category: String,
   header:   String

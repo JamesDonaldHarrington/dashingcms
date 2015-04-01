@@ -23,7 +23,10 @@ global.App = {
   // }
 };
 
-App.app.use(bodyParser.json())
+
+
+
+App.app.use(bodyParser.json({limit: '50mb'}));
 App.require('/config/db');
 App.app.use('/api', App.require('/routes/all'));
 App.app.use('/uploads', express.static(__dirname + '/uploads'));
