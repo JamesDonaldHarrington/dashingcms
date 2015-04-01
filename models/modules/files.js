@@ -4,10 +4,10 @@ var mongoose = require('mongoose'),
 
 FilesSchema = new mongoose.Schema({
   created:   {type:Number, default: Date.now()},
-  galleries: [{type:String, required:[true, 'Please select a gallery to put this image in']}],
   title:     {type:String, required:[true, 'Please supply a title']},
   fileName:  String,
-  category:  String,
+  path:      String,
+  category:  [{type:String}],
   note:      String,
   text:      String,
   info:      [{
@@ -16,5 +16,13 @@ FilesSchema = new mongoose.Schema({
              }]
 });
 
+
+FilesSchema.pre('save', function(next) {
+  if (!this.path) {
+    this.path = '/uploads/'+this.fileName;
+    next();
+  }
+  next();
+});
 
 module.exports = mongoose.model('File', FilesSchema);

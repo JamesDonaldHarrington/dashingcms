@@ -11,6 +11,7 @@ router.route('/galleries/:id?')
   var gallery = new Galleries({
     title:    req.body.title,
     slug:     req.body.slug,
+    images:   req.body.images,
     category: req.body.category,
     header:   req.body.header,
   });
@@ -38,10 +39,11 @@ router.route('/galleries/:id?')
 .put(auth.creds, function (req, res, next) {
   Galleries.findOne({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}    
-    doc.title =    req.body.title || doc.title;
-    doc.slug =     req.body.slug || doc.slug;
-    doc.category = req.body.category || doc.category;
-    doc.header =   req.body.header || doc.header;
+    if (req.body.title)     {doc.title =    req.body.title;}
+    if (req.body.slug)      {doc.slug =     req.body.slug;}
+    if (req.body.images)    {doc.images =   req.body.images;}
+    if (req.body.category)  {doc.category = req.body.category;}
+    if (req.body.header)    {doc.header =   req.body.header;}
 
     doc.save(function(err, doc){
       if (err) {return next(err);}

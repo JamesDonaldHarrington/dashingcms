@@ -31,16 +31,16 @@ router.route('/events/:id?')
 .put(auth.creds, function (req, res, next) {
   Events.findOne({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}
-    
-    doc.title =       req.body.title       || doc.title;
-    doc.image =       req.body.image       || doc.image;
-    doc.slug =        req.body.slug        || doc.slug;
-    doc.category =    req.body.category    || doc.category;
-    doc.body =        req.body.body        || doc.body;
-    doc.startDate =   req.body.startDate   || doc.startDate;
-    doc.endDate =     req.body.endDate     || doc.endDate;
-    doc.location =    req.body.location    || doc.location;
-    doc.eventStatus = req.body.eventStatus || doc.eventStatus;
+      
+    if (req.body.title)       {doc.title =       req.body.title;}
+    if (req.body.image)       {doc.image =       req.body.image;}
+    if (req.body.slug)        {doc.slug =        req.body.slug;}
+    if (req.body.category)    {doc.category =    req.body.category;}
+    if (req.body.body)        {doc.body =        req.body.body;}
+    if (req.body.startDate)   {doc.startDate =   req.body.startDate;}
+    if (req.body.endDate)     {doc.endDate =     req.body.endDate;}
+    if (req.body.location)    {doc.location =    req.body.location;}
+    if (req.body.eventStatus) {doc.eventStatus = req.body.eventStatus;}
 
     doc.save(function(err, doc){
       if (err) {return next(err);}

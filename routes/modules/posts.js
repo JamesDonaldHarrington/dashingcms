@@ -28,11 +28,11 @@ router.route('/posts/:_id?')
 .put(auth.creds, function (req, res, next) {
   Posts.findOne({'_id': req.body._id}, function(err, doc){
     if (err) {return next(err);}
-    doc.title = req.body.title || doc.title;
-    doc.slug =  req.body.slug  || doc.slug;
-    doc.status =  req.body.status  || doc.status;
-    doc.body =  req.body.body  || doc.body;
-    doc.category = req.body.category || doc.category;
+    if (req.body.title)    {doc.title =    req.body.title;}
+    if (req.body.slug)     {doc.slug =     req.body.slug;}
+    if (req.body.status)   {doc.status =   req.body.status;}
+    if (req.body.body)     {doc.body =     req.body.body;}
+    if (req.body.category) {doc.category = req.body.category;}
     doc.save(function(err, doc){
       if (err) {return next(err);}
       res.success(doc);
