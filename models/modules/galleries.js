@@ -12,7 +12,7 @@ GalleriesSchema = new mongoose.Schema({
   position:{type:Number}
   }],
   slug:     String,
-  category: String,
+  category:  [{type:String}],
   header:   String
 });
 

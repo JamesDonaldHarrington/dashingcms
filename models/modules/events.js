@@ -7,7 +7,7 @@ EventsSchema = new mongoose.Schema({
   title:       {type:String, required:[true, 'Please supply a title']},
   image:       String,
   slug:        String,
-  category:    String,
+  category:    [{type:String}],
   body:{type:  String, required:[true, 'Please supply body']},
   startDate:   {type:Number, require:[true, 'Please choose a start date']},
   endDate:     {type:Number, default:0},
