@@ -6,6 +6,8 @@ FilesSchema = new mongoose.Schema({
   created:   {type:Number, default: Date.now()},
   title:     {type:String, required:[true, 'Please supply a title']},
   fileName:  String,
+  extension: String,
+  filetype:  String,
   path:      String,
   category:  [{type:String}],
   note:      String,

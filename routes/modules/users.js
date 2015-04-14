@@ -12,6 +12,26 @@ router.route('/users/:id?', auth.creds)
   	res.success(doc);
   });
 })
+.post(function (req, res, next) {
+
+  if (err) {return next(err);}
+  user = new Users({
+    email:         req.body.email,
+    password:      req.body.password,
+    givenName:     req.body.givenName,
+    familyName:    req.body.familyName,
+    accessibility: req.body.accessibility
+  });
+
+  crypto.randomBytes(48, function(ex, buf) {
+    user.token = buf.toString('hex');
+    user.save(function(err, doc){
+      if (err) {return next(err) };
+      req.user = doc;
+      res.success(doc, {message:'User Successfully created'});
+    });
+  });
+})
 .put(auth.creds, function (req, res, next) {
    Users.findOne({'_id': req.body._id}, function(err, doc){
    	if (err){return next(err);} 

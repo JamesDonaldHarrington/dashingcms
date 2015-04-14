@@ -5,7 +5,7 @@ var express = require('express'),
     // ub = App.require('/helpers/ub'),
     Galleries = App.require('/models/modules/galleries');
 
-router.route('/galleries/:id?')
+router.route('/galleries/:_id?')
 
 .post(auth.creds, function (req, res, next) {
   var gallery = new Galleries({
@@ -13,7 +13,7 @@ router.route('/galleries/:id?')
     slug:     req.body.slug,
     images:   req.body.images,
     category: req.body.category,
-    header:   req.body.header,
+    header:   req.body.header
   });
   gallery.save(function(err, doc){
     if (err) {return next(err);}
@@ -22,9 +22,8 @@ router.route('/galleries/:id?')
 })
 
 .get(function (req, res, next) {
-  console.log(req.params);
-  if (req.params.id && req.params.id !== 'galleries') {
-    Galleries.findOne({'_id':req.params.id},function(err, doc){
+  if (req.params._id) {
+    Galleries.findOne({'_id':req.params._id},function(err, doc){
       if (err) {return next(err);}
       res.success(doc);
     });
@@ -53,7 +52,7 @@ router.route('/galleries/:id?')
 })
 
 .delete(auth.creds, function (req, res, next) {
-  Galleries.remove({'_id': req.body._id}, function(err, doc){
+  Galleries.remove({'_id': req.params._id}, function(err, doc){
     if (err) {return next(err);}
     res.success(doc);
   });
