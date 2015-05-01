@@ -16,7 +16,7 @@ router.route('/users/:id?', auth.creds)
 .post(function (req, res, next) {
   user = new Users({
     email:         req.body.email,
-    password:      req.body.password,
+    password:      crypto.randomBytes(5).toString('hex'),
     givenName:     req.body.givenName,
     familyName:    req.body.familyName,
     accessibility: req.body.accessibility
@@ -27,6 +27,7 @@ router.route('/users/:id?', auth.creds)
     user.save(function(err, doc){
       if (err) {return next(err) };
       req.user = doc;
+      // email stuff
       res.success(doc, {message:'User Successfully created'});
     });
   });
