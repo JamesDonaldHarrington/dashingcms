@@ -3,6 +3,7 @@ var express = require('express'),
     router = express.Router(),
     auth = App.require('/helpers/auth'),
     // ub = App.require('/helpers/ub'),
+    crypto = require('crypto'),
     Users = App.require('/models/users/users');
 
 router.route('/users/:id?', auth.creds)
@@ -13,8 +14,6 @@ router.route('/users/:id?', auth.creds)
   });
 })
 .post(function (req, res, next) {
-
-  if (err) {return next(err);}
   user = new Users({
     email:         req.body.email,
     password:      req.body.password,

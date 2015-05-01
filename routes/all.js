@@ -18,6 +18,8 @@ router.use('/cms',
   App.require('/routes/modules/files'),
   App.require('/routes/modules/inquiries'),
   App.require('/routes/modules/users'),
+  App.require('/routes/modules/rolls'),
+  App.require('/routes/modules/access'),
   App.require('/routes/modules/events')
 )
 
