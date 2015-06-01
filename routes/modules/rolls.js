@@ -2,6 +2,7 @@
 var express = require('express'),
     router = express.Router(),
     auth = App.require('/helpers/auth'),
+    Users = App.require('/models/users/users'),
     Rolls = App.require('/models/modules/rolls');
 
 router.route('/rolls/:_id?', auth.creds)
@@ -36,9 +37,23 @@ router.route('/rolls/:_id?', auth.creds)
   });
 })
 .delete(auth.creds, function (req, res, next) {
-  Rolls.remove({'_id': req.params._id}, function(err, doc){
+  var _id = req.params._id;
+  Rolls.findOne({_id:_id}, function(err, doc){
     if (err) {return next(err);}
-    res.success(doc);
+    var rollToDelete = doc;
+    if (!rollToDelete) {err = new Error('That roll does not exist'); err.status=400; return next(err);}
+      Rolls.remove({'_id': _id}, function(err, doc){
+        if (err) {return next(err);}
+          
+          Users.find({'accessibility': rollToDelete.title}).stream()
+          .on('data', function(doc){
+            doc.accessibility = 'none';
+            doc.save();
+          })
+          .on('error', function(err){ if (err) {return next(err);} })
+          .on('end', function(){ res.success(rollToDelete); });
+
+      });
   });
 });
 

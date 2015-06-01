@@ -51,9 +51,9 @@ router.route('/files/:_id?')
   Files.findOne({_id:_id}, function(err, doc){
     if (err) {return next(err);}
     var fileToDelete = doc;
+    if (!fileToDelete) {err = new Error('file data does not exist'); err.status=400; return next(err);}
     Files.remove({'_id': req.params._id}, function(err, delDoc){
       if (err) {return next(err);}
-      if (!fileToDelete) {err = new Error('file data does not exist'); err.status=400; return next(err);}
       fs.unlink(App.root+'/uploads/'+fileToDelete.fileName, function (err) {
         if (err) {return next(err);}
         console.log('Here')
